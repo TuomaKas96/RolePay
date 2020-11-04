@@ -1,18 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/rolepay_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/balance_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/balance_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/balance_value_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/balance_value_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/new_payment_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_payment_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/new_payment_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_payment_button" />
+
+    <TextView
+        android:id="@+id/new_request_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_request_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/new_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_request_button" />
+
+    <TextView
+        android:id="@+id/public_token_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/public_token_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/public_token_value_text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

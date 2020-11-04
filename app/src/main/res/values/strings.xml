@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">RolePay</string>
+    <string name="balance_text">Saldo</string>
+    <string name="balance_value_text">0€</string>
+    <string name="new_payment_text">Uusi maksu</string>
+    <string name="new_request_text">Uusi pyyntö</string>
+    <string name="public_token_text">Julkinen token:</string>
+    <string name="public_token_value_text">1234567890</string>
+    <string name="new_payment_button">Uusi maksu</string>
+    <string name="new_request_button">Uusi pyyntö</string>
 </resources>
