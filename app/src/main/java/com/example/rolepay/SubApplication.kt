@@ -11,7 +11,8 @@ class SubApplication : Application() {
         super.onCreate()
         Log.d("MainActivity", "App starting")
         val i = Intent()
-        i.setAction("ACTION_TEST_CONNECTION")
+        //i.setAction("ACTION_TEST_CONNECTION")
+        i.setAction("ACTION_FETCH_USER")
         DatabaseConnection.enqueueWork(this, i)
     }
 }

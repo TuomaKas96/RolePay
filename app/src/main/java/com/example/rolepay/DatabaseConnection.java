@@ -10,7 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Objects;
 
@@ -39,20 +46,23 @@ public class DatabaseConnection extends JobIntentService {
         if (label == null) {
             label = intent.toString();
         }
-        toast("Executing: " + label);
-        for (int i = 0; i < 5; i++) {
-            Log.i("DatabaseConnection", "Running service " + (i + 1)
-                    + "/5 @ " + SystemClock.elapsedRealtime());
-            try {
-                Thread.sleep(1000);
-                // Write tasks here
-                switch (Objects.requireNonNull(intent.getAction())){
-                    case "ACTION_TEST_CONNECTION": testConnection();break;
-                    default: Log.d("DatabaseConnection", "No action was provided");
-                }
-            } catch (InterruptedException e) {
+        Log.i("DatabaseConnection","Executing: " + label);
+        try {
+            Thread.sleep(1000);
+            // Write tasks here
+            switch (Objects.requireNonNull(intent.getAction())) {
+                case "ACTION_TEST_CONNECTION":
+                    apiConnection("");
+                    break;
+                case "ACTION_FETCH_USER":
+                    apiConnection("user/1");
+                    break;
+                default:
+                    Log.d("DatabaseConnection", "No action was provided");
             }
+        } catch (InterruptedException e) {
         }
+
         Log.i("DatabaseConnection", "Completed service @ " + SystemClock.elapsedRealtime());
     }
 
@@ -73,23 +83,24 @@ public class DatabaseConnection extends JobIntentService {
             }
         });
     }
-    void testConnection () {
+    void apiConnection (String path) {
         Log.d("DatabaseConnection", "Testing connection");
-        String url = "jdbc:mysql://192.168.1.101:3306/rolepay";
-        String user = "app";
-        String pass = "appPassword";
         try {
-
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection(
-                    url,
-                    user,
-                    pass
-            );
-
-            Log.d("DatabaseConnection","Connection works!");
+            // Use local IP for the debugging PC
+            URL url = new URL("http://192.168.1.101:3000/" + path);
+            HttpURLConnection httpConn = (HttpURLConnection)url.openConnection();
+            httpConn.setRequestMethod("GET");
+            InputStream inputStream = httpConn.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line = bufferedReader.readLine();
+            Log.d("DatabaseConnection", line);
+            httpConn.disconnect();
         } catch (Exception e) {
-            Log.d("DatabaseConnection",e.toString());
+            Log.d("DatabaseConnection", "Error: " + e.toString());
+        }
+        finally {
+            Log.d("DatabaseConnection", "API call finished");
         }
     }
 }
