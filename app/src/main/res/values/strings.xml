@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">RolePay</string>
+
+    <!--activity_main-->
+    <string name="new_environment_text">Luo uusi ympäristö:</string>
+    <string name="new_environment_button">Uusi ympäristö</string>
+    <string name="login_text">Kirjaudu sisään (private token):</string>
+    <string name="login_input_text">Private token</string>
+    <string name="login_button_text">Kirjaudu</string>
+
+    <!--activity_index-->
     <string name="balance_text">Saldo</string>
     <string name="balance_value_text">0€</string>
     <string name="new_payment_text">Uusi maksu</string>
@@ -8,4 +17,5 @@
     <string name="public_token_value_text">1234567890</string>
     <string name="new_payment_button">Uusi maksu</string>
     <string name="new_request_button">Uusi pyyntö</string>
+
 </resources>
