@@ -8,7 +8,7 @@
     <string name="login_input_text">Private token</string>
     <string name="login_button_text">Kirjaudu</string>
 
-    <!--activity_index-->
+    <!--activity_user_main_view-->
     <string name="balance_text">Saldo</string>
     <string name="balance_value_text">0€</string>
     <string name="new_payment_text">Uusi maksu</string>
