@@ -18,4 +18,6 @@
     <string name="new_payment_button">Uusi maksu</string>
     <string name="new_request_button">Uusi pyyntö</string>
 
+    <!--activity_user_balance-->
+    <string name="balance_history_text">Maksuhistoria:</string>
 </resources>
