@@ -15,16 +15,28 @@ class SubApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Log.d("MainActivity", "App starting")
+        // Create an intent
         val i = Intent()
-        //i.setAction("ACTION_TEST_CONNECTION")
-        i.setAction("ACTION_FETCH_ENVIRONMENT_NAME")
-        i.putExtra("id", 4)
+        // Create parameters, they will be added to the url/request body
+        //val params = hashMapOf<String,String>("name" to "NewName", "id" to "1")
+        // Action is the name of intent, can be anything, currently used for debug
+        i.action = "ACTION_TEST_CONNECTION"
+        // Add parameters to intent
+        //i.putExtra("params", params)
+        // Set method
+        i.putExtra("method", "GET")
+        // Add url path, these can be checked from server/routes/index.js
+        i.putExtra("path", "") // Could be for example "environment/name"
+        // Add receiver (= code that handles the response). This is required
         i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
             override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                 super.onReceiveResult(resultCode, resultData)
+                // Successful API call
                 if (resultCode == 200) {
+                    // Write your logic here
                     Log.d("SubApplication", "Data retrieved: " + resultData.getString("Data"))
-                } else {
+                } else { // Failed API call
+                   // Write your logic here
                     Log.i("SubApplication", "Something went wrong: " + resultData.getString("Error"))
                 }
             }
