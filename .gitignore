@@ -12,3 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
+/RolePayServer/node_modules

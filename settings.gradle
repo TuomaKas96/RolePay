@@ -1,2 +1,3 @@
+include ':mysql-connector'
 include ':app'
 rootProject.name = "RolePay"
