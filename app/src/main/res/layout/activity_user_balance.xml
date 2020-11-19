@@ -1,59 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".UserBalance">
 
-    <TextView
-        android:id="@+id/rolepay_logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36sp" />
-
-    <TextView
-        android:id="@+id/balance_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/balance_value_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance_value_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="50sp" />
-
-    <TextView
-        android:id="@+id/balance_history_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance_history_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
-
-    <!--TODO: turn this into RecyclerView and make it work!-->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
