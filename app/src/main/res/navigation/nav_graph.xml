@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startView">
+
+    <fragment
+        android:id="@+id/transaction"
+        android:name="com.example.rolepay.Transaction"
+        android:label="activity_transaction" >
+        <action
+            android:id="@+id/returnToUserView2"
+            app:destination="@id/userMainView" />
+    </fragment>
+    <fragment
+        android:id="@+id/admin"
+        android:name="com.example.rolepay.Admin"
+        android:label="activity_admin"
+        tools:layout="@layout/activity_admin" />
+    <fragment
+        android:id="@+id/startView"
+        android:name="com.example.rolepay.StartView"
+        android:label="activity_start_view"
+        tools:layout="@layout/activity_start_view" >
+        <action
+            android:id="@+id/newEnvironment"
+            app:destination="@id/admin" />
+        <action
+            android:id="@+id/loginAsUser"
+            app:destination="@id/userMainView" />
+        <action
+            android:id="@+id/loginAsAdmin"
+            app:destination="@id/admin" />
+    </fragment>
+    <fragment
+        android:id="@+id/userMainView"
+        android:name="com.example.rolepay.UserMainView"
+        android:label="activity_user_main_view"
+        tools:layout="@layout/activity_user_main_view" >
+        <action
+            android:id="@+id/newPayment"
+            app:destination="@id/transaction" />
+        <action
+            android:id="@+id/newRequest"
+            app:destination="@id/transaction" />
+        <action
+            android:id="@+id/viewBalance"
+            app:destination="@id/userBalance" />
+    </fragment>
+    <fragment
+        android:id="@+id/userBalance"
+        android:name="com.example.rolepay.UserBalance"
+        android:label="activity_user_balance"
+        tools:layout="@layout/activity_user_balance" >
+        <action
+            android:id="@+id/returnToUserView"
+            app:destination="@id/userMainView" />
+    </fragment>
+    <action
+        android:id="@+id/logout"
+        app:destination="@id/startView" />
+</navigation>

@@ -2,12 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_view_layout"
+    android:id="@+id/user_main_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
+    tools:context=".UserMainView">
 
     <TextView
         android:id="@+id/rolepay_logo"
@@ -50,7 +49,7 @@
         android:id="@+id/new_payment_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_payment_button" />
+        android:text="@string/new_payment_button"/>
 
     <TextView
         android:id="@+id/new_request_text"
@@ -65,7 +64,7 @@
         android:id="@+id/new_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_request_button" />
+        android:text="@string/new_request_button"/>
 
     <TextView
         android:id="@+id/public_token_text"
