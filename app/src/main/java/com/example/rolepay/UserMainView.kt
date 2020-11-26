@@ -8,4 +8,6 @@ class UserMainView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_main_view)
     }
+
+
 }

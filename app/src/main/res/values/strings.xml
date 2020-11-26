@@ -4,9 +4,11 @@
     <!--activity_main-->
     <string name="new_environment_text">Luo uusi ympäristö:</string>
     <string name="new_environment_button">Uusi ympäristö</string>
-    <string name="login_text">Kirjaudu sisään (private token):</string>
-    <string name="login_input_text">Private token</string>
+    <string name="login_text">Kirjaudu sisään:</string>
+    <string name="login_input_hint">Private token</string>
     <string name="login_button_text">Kirjaudu</string>
+    <string name="login_error_text">Virhe kirjautuessa. Yritä uudelleen.</string>
+    <string name="test_text"></string>
 
     <!--activity_user_main_view-->
     <string name="balance_text">Saldo</string>

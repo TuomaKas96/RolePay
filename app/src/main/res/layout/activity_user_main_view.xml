@@ -28,6 +28,8 @@
         android:textColor="@android:color/black"
         android:textSize="24sp" />
 
+    <!--TODO: change text to correct value from db
+              add functionality (onClick and clickHandler in .kt file)-->
     <TextView
         android:id="@+id/balance_value_text"
         android:layout_width="match_parent"
@@ -75,12 +77,14 @@
         android:textAlignment="center"
         android:textColor="@android:color/black" />
 
+    <!--TODO: change text to correct value from db-->
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/public_token_val_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/public_token_value_text"
         android:textAlignment="center"
         android:textColor="@android:color/black" />
 
+    <!--TODO: add logout button-->
 </LinearLayout>
