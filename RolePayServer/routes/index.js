@@ -153,5 +153,12 @@ router.post('/transaction/add/', function (req, res) {
       res.send(result)
     })
 })
-
+// ---------------- BALANCE ---------------------
+/* GET user */
+router.get('/balance/', function (req, res) {
+  connection.query('SELECT 1 FROM balance WHERE user_id=' + req.query.id, function (err, result) {
+    if (err) throw err
+    res.send(result)
+  })
+})
 module.exports = router;
