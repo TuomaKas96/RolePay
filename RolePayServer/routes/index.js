@@ -81,7 +81,7 @@ router.get('/environment/remove/', function (req, res) {
 // ------------- USER ------------------
 /* GET user */
 router.get('/user/', function (req, res) {
-    connection.query('SELECT 1 FROM user WHERE private_token=' + req.query.token, function (err, result) {
+    connection.query('SELECT * FROM user WHERE private_token=' + req.query.token, function (err, result) {
       if (err) throw err
       res.send(result)
     })
