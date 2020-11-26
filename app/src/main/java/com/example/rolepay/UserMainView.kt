@@ -15,6 +15,7 @@ class UserMainView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.activity_user_main_view, container, false)
+
         val requestBtn = v.findViewById(R.id.new_request_button) as Button
         requestBtn.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(R.id.newRequest)
