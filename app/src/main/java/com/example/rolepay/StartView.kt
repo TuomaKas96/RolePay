@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -36,6 +37,9 @@ class StartView : Fragment() {
             val loginInput = v.findViewById(R.id.login_input) as EditText
             val tokenValue = "'" + loginInput.text.toString() + "'"
             val errorText = v.findViewById(R.id.login_error_text) as TextView
+            val loader = v.findViewById(R.id.progress_loader) as ProgressBar
+
+            loader.visibility = View.VISIBLE //makes the loader spinny thing visible after pressing the button
 
             // Create an intent
             val i = Intent()
@@ -55,8 +59,14 @@ class StartView : Fragment() {
                     super.onReceiveResult(resultCode, resultData)
                     // Successful API call
                     if (resultCode == 200) {
-                        // Write your logic here
                         Log.d("SubApplication", "Data retrieved: " + resultData.getString("Data"))
+
+                        //hide the loader after the query
+                        loader.visibility = View.INVISIBLE
+                        //hide error message if visible from previous attempts
+                        if (errorText.visibility == View.VISIBLE){
+                            errorText.visibility = View.INVISIBLE
+                        }
 
                         //TODO: parse resultData and add data to session or some such
                         //Log.d("StartView", "User id: " +  userID)
@@ -65,9 +75,12 @@ class StartView : Fragment() {
                         //navigate to user_main_view
                         NavHostFragment.findNavController(this@StartView).navigate(R.id.loginAsUser)
                     } else { // Failed API call
-                        // Write your logic here
                         Log.i("SubApplication", "Something went wrong: " + resultData.getString("Error"))
 
+                        //hide the loader after the query
+                        loader.visibility = View.INVISIBLE
+
+                        //show error message after failed API call
                         errorText.visibility = View.VISIBLE
 
                     }
