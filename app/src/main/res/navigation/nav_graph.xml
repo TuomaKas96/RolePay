@@ -47,6 +47,9 @@
         <action
             android:id="@+id/viewBalance"
             app:destination="@id/userBalance" />
+        <action
+            android:id="@+id/returnToStartView"
+            app:destination="@id/startView" />
     </fragment>
     <fragment
         android:id="@+id/userBalance"
