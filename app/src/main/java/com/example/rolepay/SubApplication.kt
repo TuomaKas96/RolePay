@@ -11,6 +11,16 @@ import android.util.Log
 
 // This is where code commonly used all around the app will be written
 class SubApplication : Application() {
+    companion object {
+        //Create data storage for user info
+        var userId: Int? = null
+        var publicToken: String? = null
+        var privateToken: String? = null
+        var admin: Int? = null
+        var balanceId: Int? = null
+        var environmentId: Int? = null
+        // Access anywhere in app, for example: "SubApplication.userId"
+    }
     // Runs once when app starts
     override fun onCreate() {
         super.onCreate()
@@ -41,6 +51,6 @@ class SubApplication : Application() {
                 }
             }
         })
-        //DatabaseConnection.enqueueWork(this, i)
+        DatabaseConnection.enqueueWork(this, i)
     }
 }
