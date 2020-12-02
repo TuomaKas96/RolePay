@@ -60,7 +60,7 @@ class DatabaseConnection : JobIntentService() {
             if (intent.getStringExtra("method") == "POST") {
                 Log.d("DBCon", "POST coming")
                 // Form the url
-                if (intent.getSerializableExtra("params") != null) {
+                if (intent.getSerializableExtra("params") == null) {
                     Log.e("DBCon", "POST query had no parameters! Aborting")
                     return
                 }

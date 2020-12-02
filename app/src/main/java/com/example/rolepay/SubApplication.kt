@@ -24,7 +24,7 @@ class SubApplication : Application() {
         // Add parameters to intent
         //i.putExtra("params", params)
         // Set method
-        i.putExtra("method", "GET")
+        //i.putExtra("method", "POST")
         // Add url path, these can be checked from server/routes/index.js
         i.putExtra("path", "") // Could be for example "environment/name"
         // Add receiver (= code that handles the response). This is required
@@ -41,6 +41,6 @@ class SubApplication : Application() {
                 }
             }
         })
-        //DatabaseConnection.enqueueWork(this, i)
+        DatabaseConnection.enqueueWork(this, i)
     }
 }

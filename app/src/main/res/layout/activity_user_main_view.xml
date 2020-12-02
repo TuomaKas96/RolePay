@@ -52,21 +52,6 @@
         android:text="@string/new_payment_button"/>
 
     <TextView
-        android:id="@+id/new_request_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/new_request_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/new_request_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/new_request_button"/>
-
-    <TextView
         android:id="@+id/public_token_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
