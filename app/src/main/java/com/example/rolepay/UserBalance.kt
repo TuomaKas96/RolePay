@@ -8,16 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
-import java.util.Date
 import kotlin.collections.ArrayList
 
 class UserBalance : Fragment() {
@@ -32,12 +28,10 @@ class UserBalance : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         var transactionEvents = ArrayList<TransactionEvent>()
         val gson = Gson()
-        val userId = 1
         // Fetch events
         val i = Intent()
-        val params = hashMapOf<String,String>("id" to "1")
         i.action = "ACTION_FETCH_TRANSACTIONS"
-        i.putExtra("params", params)
+        i.putExtra("params", hashMapOf<String,String>("id" to SubApplication.userId.toString()))
         i.putExtra("path", "user/transaction")
         i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
             override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
@@ -47,7 +41,7 @@ class UserBalance : Fragment() {
                     Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                     val data = gson.fromJson(resultData.getString("Data"), Array<TransactionEvent>::class.java)
                     for (event: TransactionEvent in data){
-                        if (event.sender == userId){
+                        if (event.sender == SubApplication.userId){
                             event.isNegative = true
                             event.publicToken = "adhnadhuia"
                         }else {
@@ -63,26 +57,33 @@ class UserBalance : Fragment() {
             }
         })
         DatabaseConnection.enqueueWork(context, i)
-        // Fetch balance
-        val j = Intent()
-        j.action = "ACTION_FETCH_BALANCE"
-        j.putExtra("params", params)
-        j.putExtra("path", "balance")
-        j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
-            override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
-                super.onReceiveResult(resultCode, resultData)
-                // Successful API call
-                if (resultCode == 200) {
-                    Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
-                    balanceText.setText(resultData.getString("Data") + "€")
+        if (SubApplication.balanceAmount == null) {
+            // Fetch balance
+            val j = Intent()
+            j.action = "ACTION_FETCH_BALANCE"
+            j.putExtra("params", hashMapOf<String,String>("id" to SubApplication.balanceId.toString()))
+            j.putExtra("path", "balance")
+            j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
+                override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
+                    super.onReceiveResult(resultCode, resultData)
+                    // Successful API call
+                    if (resultCode == 200) {
+                        Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
+                        balanceText.setText(resultData.getString("Data") + "€")
 
-                } else { // Failed API call
-                    Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                    balanceText.setText("0€")
+                    } else { // Failed API call
+                        Log.i(
+                            "UserBalance",
+                            "Something went wrong: " + resultData.getString("Error")
+                        )
+                        balanceText.setText("0€")
+                    }
                 }
-            }
-        })
-        DatabaseConnection.enqueueWork(context, j)
+            })
+            DatabaseConnection.enqueueWork(context, j)
+        }else {
+            balanceText.setText(SubApplication.balanceAmount.toString() + "€")
+        }
         return v
     }
 }
