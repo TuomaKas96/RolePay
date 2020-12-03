@@ -27,6 +27,14 @@
     <!--activity_user_balance-->
     <string name="balance_history_text">Maksuhistoria:</string>
 
+    <!--activity_admin-->
+    <string name="new_user_text">Uusi käyttäjä</string>
+    <string name="environment_name">Ympäristön nimi</string>
+    <string name="save">Tallenna</string>
+    <string name="private_token">Salainen token:</string>
+    <string name="remove_user">Poista käyttäjä</string>
+    <string name="remove_environment">Poista ympäristö</string>
+  
     <!--activity_transaction-->
     <string name="transaction">Maksutapahtuma</string>
     <string name="transaction_type">Maksu / pyyntö</string>
