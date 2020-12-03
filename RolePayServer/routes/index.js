@@ -133,10 +133,10 @@ router.get('/user/remove/', function (req, res) {
 // ----------------- TRANSACTIONS ------------
 /* GET transaction by id */
 router.get('/transaction/', function (req, res) {
-  connection.query('SELECT 1 FROM transaction WHERE transaction_id=' + req.query.id, function (err, result) {
-    if (err) throw err
-    res.send(result)
-  })
+    connection.query('SELECT * FROM transaction WHERE transaction_id=' + req.query.id, function (err, result) {
+      if (err) throw err
+      res.send(result)
+    })
 })
 
 /* GET user transactions */
@@ -182,20 +182,15 @@ router.post('/transaction/add', function (req, res) {
     })
   })
 })
-// /* ADD a new transaction */
-// router.post('/t/', function (req, res) {
-//     connection.query('INSERT INTO transaction (timestamp, amount, sender, receiver) VALUES (NOW(), ' 
-//     + req.body.amount, + ', "' + req.body.sender, + '", "' + req.body.receiver + '")', function (err, result) {
-//       if (err) throw err
-//       res.send(result)
-//     })
-// })
+
 // ---------------- BALANCE ---------------------
-/* GET user */
+/* GET balance */
 router.get('/balance/', function (req, res) {
-  connection.query('SELECT 1 FROM balance WHERE user_id=' + req.query.id, function (err, result) {
+  connection.query('SELECT value FROM balance WHERE balance_id=' + req.query.id, function (err, result) {
     if (err) throw err
-    res.send(result)
+    console.log(result[0].value)
+    res.status(200)
+    res.send(result[0].value.toString())
   })
 })
 module.exports = router;
