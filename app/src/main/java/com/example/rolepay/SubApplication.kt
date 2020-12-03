@@ -56,6 +56,6 @@ class SubApplication : Application() {
                 }
             }
         })
-        //DatabaseConnection.enqueueWork(this, i)
+        DatabaseConnection.enqueueWork(this, i)
     }
 }
