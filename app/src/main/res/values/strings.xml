@@ -29,4 +29,6 @@
     <string name="environment_name">Ympäristön nimi</string>
     <string name="save">Tallenna</string>
     <string name="private_token">Salainen token:</string>
+    <string name="remove_user">Poista käyttäjä</string>
+    <string name="remove_environment">Poista ympäristö</string>
 </resources>

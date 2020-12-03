@@ -2,6 +2,7 @@ package com.example.rolepay
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -12,8 +13,9 @@ import android.util.Log
 // This is where code commonly used all around the app will be written
 class SubApplication : Application() {
     companion object {
+        lateinit  var appContext: Context
         //Create data storage for user info
-        var userId: Int? = 1
+        var userId: Int = 1
         var publicToken: String? = null
         var privateToken: String? = null
         var admin: Boolean? = null
@@ -26,6 +28,7 @@ class SubApplication : Application() {
     // Runs once when app starts
     override fun onCreate() {
         super.onCreate()
+        SubApplication.appContext = applicationContext
         Log.d("MainActivity", "App starting")
         // Create an intent
         val i = Intent()
