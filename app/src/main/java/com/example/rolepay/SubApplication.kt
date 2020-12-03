@@ -1,6 +1,5 @@
 package com.example.rolepay
 
-import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
@@ -11,10 +10,22 @@ import android.util.Log
 
 // This is where code commonly used all around the app will be written
 class SubApplication : Application() {
+    companion object {
+        //Create data storage for user info
+        var userId: Int? = null
+        var publicToken: String? = null
+        var privateToken: String? = null
+        var admin: Boolean? = null
+        var balanceId: Int? = null
+        var environmentId: Int? = null
+        // Access anywhere in app, for example: "SubApplication.userId"
+    }
+
     // Runs once when app starts
     override fun onCreate() {
         super.onCreate()
         Log.d("MainActivity", "App starting")
+
         // Create an intent
         val i = Intent()
         // Create parameters, they will be added to the url/request body
@@ -36,8 +47,11 @@ class SubApplication : Application() {
                     // Write your logic here
                     Log.d("SubApplication", "Data retrieved: " + resultData.getString("Data"))
                 } else { // Failed API call
-                   // Write your logic here
-                    Log.i("SubApplication", "Something went wrong: " + resultData.getString("Error"))
+                    // Write your logic here
+                    Log.i(
+                        "SubApplication",
+                        "Something went wrong: " + resultData.getString("Error")
+                    )
                 }
             }
         })
