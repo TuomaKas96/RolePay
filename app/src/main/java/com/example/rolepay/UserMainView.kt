@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 
@@ -15,7 +16,10 @@ class UserMainView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.activity_user_main_view, container, false)
-
+        val balance = v.findViewById(R.id.balance_value_text) as TextView
+        balance.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.viewBalance)
+        }
         val requestBtn = v.findViewById(R.id.new_request_button) as Button
         requestBtn.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(R.id.newRequest)

@@ -81,7 +81,7 @@ router.get('/environment/remove/', function (req, res) {
 // ------------- USER ------------------
 /* GET user */
 router.get('/user/', function (req, res) {
-    connection.query('SELECT 1 FROM user WHERE private_token=' + req.query.token, function (err, result) {
+    connection.query('SELECT * FROM user WHERE private_token=' + req.query.token, function (err, result) {
       if (err) throw err
       res.send(result)
     })
@@ -133,7 +133,7 @@ router.get('/user/remove/', function (req, res) {
 // ----------------- TRANSACTIONS ------------
 /* GET transaction by id */
 router.get('/transaction/', function (req, res) {
-    connection.query('SELECT 1 FROM transaction WHERE transaction_id=' + req.query.id, function (err, result) {
+    connection.query('SELECT * FROM transaction WHERE transaction_id=' + req.query.id, function (err, result) {
       if (err) throw err
       res.send(result)
     })
@@ -154,11 +154,13 @@ router.post('/transaction/add/', function (req, res) {
     })
 })
 // ---------------- BALANCE ---------------------
-/* GET user */
+/* GET balance */
 router.get('/balance/', function (req, res) {
-  connection.query('SELECT 1 FROM balance WHERE user_id=' + req.query.id, function (err, result) {
+  connection.query('SELECT value FROM balance WHERE balance_id=' + req.query.id, function (err, result) {
     if (err) throw err
-    res.send(result)
+    console.log(result[0].value)
+    res.status(200)
+    res.send(result[0].value.toString())
   })
 })
 module.exports = router;
