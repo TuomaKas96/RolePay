@@ -17,7 +17,7 @@ class SubApplication : Application() {
         var userId: Int? = 1
         var publicToken: String? = null
         var privateToken: String? = null
-        var admin: Boolean? = null
+        var admin: Int? = null
         var balanceId: Int? = 1
         var balanceAmount: Double? = null
         var environmentId: Int? = 1

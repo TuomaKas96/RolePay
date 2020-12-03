@@ -37,7 +37,7 @@ class StartView : Fragment() {
         loginBtn.setOnClickListener {
 
             val loginInput = v.findViewById(R.id.login_input) as EditText
-            val tokenValue = "'" + loginInput.text.toString() + "'"
+            val tokenValue = loginInput.text.toString()
             val errorText = v.findViewById(R.id.login_error_text) as TextView
             val loader = v.findViewById(R.id.progress_loader) as ProgressBar
 
@@ -53,10 +53,8 @@ class StartView : Fragment() {
             i.action = "ACTION_LOGIN_AS_USER"
             // Add parameters to intent
             i.putExtra("params", params)
-            // Set method
-            i.putExtra("method", "GET")
             // Add url path, these can be checked from server/routes/index.js
-            i.putExtra("path", "user/") // Could be for example "environment/name"
+            i.putExtra("path", "user") // Could be for example "environment/name"
             // Add receiver (= code that handles the response). This is required
             i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
