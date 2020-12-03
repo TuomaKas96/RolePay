@@ -43,7 +43,7 @@ router.get('/environment/name/', function (req, res) {
 
     connection.query('SELECT name FROM environment WHERE environment_id=' + req.query.id, function (err, result) {
       if (err) throw err
-      res.send(result)
+      res.send(result[0].name)
     })
 })
 /* GET environment users (without admin) */

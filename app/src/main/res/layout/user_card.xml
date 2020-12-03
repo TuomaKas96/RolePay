@@ -36,7 +36,7 @@
                 android:text="@string/private_token" />
 
             <EditText
-                android:id="@+id/privatE_token_editText"
+                android:id="@+id/private_token_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -60,7 +60,7 @@
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/editTextNumberDecimal"
+                android:id="@+id/balance_editText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
