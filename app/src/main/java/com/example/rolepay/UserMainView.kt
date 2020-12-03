@@ -78,28 +78,7 @@ class UserMainView : Fragment() {
         val balanceText = v.findViewById(R.id.balance_value_text) as TextView
         if (SubApplication.balanceAmount == null) {
             // Fetch balance
-            val j = Intent()
-            j.action = "ACTION_FETCH_BALANCE"
-            j.putExtra("params", hashMapOf<String,String>("id" to SubApplication.balanceId.toString()))
-            j.putExtra("path", "balance")
-            j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
-                override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
-                    super.onReceiveResult(resultCode, resultData)
-                    // Successful API call
-                    if (resultCode == 200) {
-                        Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
-                        balanceText.setText(resultData.getString("Data") + "€")
-
-                    } else { // Failed API call
-                        Log.i(
-                            "UserBalance",
-                            "Something went wrong: " + resultData.getString("Error")
-                        )
-                        balanceText.setText("0€")
-                    }
-                }
-            })
-            DatabaseConnection.enqueueWork(context, j)
+            UserBalance.fetchBalance(balanceText)
         }else {
             balanceText.setText(SubApplication.balanceAmount.toString() + "€")
         }

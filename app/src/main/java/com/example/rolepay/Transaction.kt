@@ -84,6 +84,7 @@ class Transaction : Fragment() {
                 if (resultCode == 200) {
                     Log.d("Transaction", "Data retrieved: " + resultData.getString("Data"))
                     myMsg = "Transaction complete!"
+                    UserBalance.fetchBalance(null)
 
                 } else { // Failed API call
                     Log.i("Transaction", "Something went wrong: " + resultData.getString("Error"))
