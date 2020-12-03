@@ -61,19 +61,19 @@
         android:visibility="invisible"
         tools:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/test_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/test_text"
-        android:textAlignment="center"
-        android:textColor="@android:color/black" />
-
     <Button
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_button_text" />
+
+    <ProgressBar
+        android:id="@+id/progress_loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 
 </LinearLayout>

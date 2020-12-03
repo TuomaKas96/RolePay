@@ -20,6 +20,9 @@
     <string name="public_token_value_text">1234567890</string>
     <string name="new_payment_button">Uusi maksu</string>
     <string name="new_request_button">Uusi pyyntö</string>
+    <string name="logout_button_text">Kirjaudu ulos</string>
+    <string name="logout_dialog_title">Kirjaudu ulos</string>
+    <string name="logout_dialog_msg">Haluatko varmasti kirjautua ulos?</string>
 
     <!--activity_user_balance-->
     <string name="balance_history_text">Maksuhistoria:</string>
@@ -31,4 +34,11 @@
     <string name="private_token">Salainen token:</string>
     <string name="remove_user">Poista käyttäjä</string>
     <string name="remove_environment">Poista ympäristö</string>
+  
+    <!--activity_transaction-->
+    <string name="transaction">Maksutapahtuma</string>
+    <string name="transaction_type">Maksu / pyyntö</string>
+    <string name="pay">Maksa</string>
+    <string name="request">Pyydä</string>
+    <string name="amount">Summa</string>
 </resources>

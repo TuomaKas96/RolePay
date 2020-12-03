@@ -1,6 +1,5 @@
 package com.example.rolepay
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -15,7 +14,7 @@ class SubApplication : Application() {
     companion object {
         lateinit  var appContext: Context
         //Create data storage for user info
-        var userId: Int = 1
+        var userId: Int? = 1
         var publicToken: String? = null
         var privateToken: String? = null
         var admin: Boolean? = null
@@ -30,6 +29,7 @@ class SubApplication : Application() {
         super.onCreate()
         SubApplication.appContext = applicationContext
         Log.d("MainActivity", "App starting")
+
         // Create an intent
         val i = Intent()
         // Create parameters, they will be added to the url/request body
@@ -39,7 +39,7 @@ class SubApplication : Application() {
         // Add parameters to intent
         //i.putExtra("params", params)
         // Set method
-        i.putExtra("method", "GET")
+        //i.putExtra("method", "POST")
         // Add url path, these can be checked from server/routes/index.js
         i.putExtra("path", "") // Could be for example "environment/name"
         // Add receiver (= code that handles the response). This is required
@@ -51,11 +51,14 @@ class SubApplication : Application() {
                     // Write your logic here
                     Log.d("SubApplication", "Data retrieved: " + resultData.getString("Data"))
                 } else { // Failed API call
-                   // Write your logic here
-                    Log.i("SubApplication", "Something went wrong: " + resultData.getString("Error"))
+                    // Write your logic here
+                    Log.i(
+                        "SubApplication",
+                        "Something went wrong: " + resultData.getString("Error")
+                    )
                 }
             }
         })
-        //DatabaseConnection.enqueueWork(this, i)
+        DatabaseConnection.enqueueWork(this, i)
     }
 }

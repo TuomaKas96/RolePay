@@ -81,7 +81,7 @@ router.get('/environment/remove/', function (req, res) {
 // ------------- USER ------------------
 /* GET user */
 router.get('/user/', function (req, res) {
-  connection.query('SELECT 1 FROM user WHERE private_token=' + req.query.token, function (err, result) {
+  connection.query('SELECT 1 FROM user WHERE private_token="' + req.query.token + '" OR public_token="' + req.query.publictoken + '"', function (err, result) {
     if (err) throw err
     res.send(result)
   })
@@ -121,7 +121,6 @@ router.post('/user/add/', function (req, res) {
 router.post('/user/update/', function (req, res) {
   connection.query('UPDATE user SET public_token="' + req.body.public + '" WHERE user_id=' + req.body.id, function (err, result) {
     if (err) throw err
-
   if (req.body.balance)
     connection.query('UPDATE balance SET value=' + req.body.balance + ' WHERE balance_id=' + req.body.balanceId, function (err, result) {
       if (err) throw err
@@ -144,11 +143,12 @@ router.get('/user/remove/', function (req, res) {
 // ----------------- TRANSACTIONS ------------
 /* GET transaction by id */
 router.get('/transaction/', function (req, res) {
-  connection.query('SELECT 1 FROM transaction WHERE transaction_id=' + req.query.id, function (err, result) {
-    if (err) throw err
-    res.send(result)
-  })
+    connection.query('SELECT * FROM transaction WHERE transaction_id=' + req.query.id, function (err, result) {
+      if (err) throw err
+      res.send(result)
+    })
 })
+
 /* GET user transactions */
 router.get('/user/transaction/', function (req, res) {
   connection.query('SELECT * FROM transaction WHERE sender=' + req.query.id + " OR receiver=" + req.query.id, function (err, result) {
@@ -157,19 +157,50 @@ router.get('/user/transaction/', function (req, res) {
   })
 })
 /* ADD a new transaction */
-router.post('/transaction/add/', function (req, res) {
-  connection.query('INSERT INTO transaction (timestamp, amount, sender, receiver) VALUES (NOW(), '
-    + req.body.amount, + ', "' + req.body.sender, + '", "' + req.body.receiver + '")', function (err, result) {
-      if (err) throw err
-      res.send(result)
-    })
-})
-// ---------------- BALANCE ---------------------
-/* GET user */
-router.get('/balance/', function (req, res) {
-  connection.query('SELECT 1 FROM balance WHERE user_id=' + req.query.id, function (err, result) {
+router.post('/transaction/add', function (req, res) {
+  //TODO: Add error checking
+  // Add balance for new user
+  var senderBalance, receiverBalance, receiverId
+  connection.query('SELECT balance_id FROM USER WHERE user_id=' + req.body.sender, function (err, result) {
     if (err) throw err
-    res.send(result)
+    senderBalance = result[0].balance_id
+
+    connection.query('SELECT balance_id, user_id FROM USER WHERE public_token="' + req.body.receiver + '"', function (err, result) {
+      if (err) throw err
+      receiverBalance = result[0].balance_id
+      receiverId = result[0].user_id
+
+      connection.query('SELECT 1 FROM BALANCE WHERE balance_id=' + senderBalance, function (err, result) {
+        if (err) throw err
+        if (result < req.body.amount) {
+          res.status(500)
+          res.send("Error: Not enough balance for payment")
+        }
+        else {
+          connection.query('UPDATE BALANCE SET value=value-' + req.body.amount + ' WHERE balance_id=' + senderBalance, function (err, result) {
+            if (err) throw err
+            connection.query('UPDATE BALANCE SET value=value-' + req.body.amount + ' WHERE balance_id=' + receiverBalance, function (err, result) {
+              if (err) throw err
+              connection.query('INSERT INTO transaction (timestamp, amount, sender, receiver) VALUES (NOW(), ' + req.body.amount + ', ' + req.body.sender + ', ' + receiverId + ')', function (err, result) {
+                if (err) throw err
+                res.send("Query Success!")
+              })
+            })
+          })
+        }
+      })
+    })
+  })
+})
+
+// ---------------- BALANCE ---------------------
+/* GET balance */
+router.get('/balance/', function (req, res) {
+  connection.query('SELECT value FROM balance WHERE balance_id=' + req.query.id, function (err, result) {
+    if (err) throw err
+    console.log(result[0].value)
+    res.status(200)
+    res.send(result[0].value.toString())
   })
 })
 module.exports = router;
