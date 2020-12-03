@@ -26,4 +26,11 @@
 
     <!--activity_user_balance-->
     <string name="balance_history_text">Maksuhistoria:</string>
+
+    <!--activity_transaction-->
+    <string name="transaction">Maksutapahtuma</string>
+    <string name="transaction_type">Maksu / pyyntö</string>
+    <string name="pay">Maksa</string>
+    <string name="request">Pyydä</string>
+    <string name="amount">Summa</string>
 </resources>
