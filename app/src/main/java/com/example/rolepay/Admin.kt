@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class Admin : Fragment() {
-
 
     companion object {
         val gson = Gson()
@@ -178,11 +178,13 @@ class Admin : Fragment() {
     ): View? {
         val v =  inflater.inflate(R.layout.activity_admin, container, false)
         recyclerView = v.findViewById(R.id.users_recycler_view) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
         environmentName = v.findViewById(R.id.environment_name) as EditText
         val newUserBtn = v.findViewById(R.id.new_user_btn) as Button
         val saveEnvironmentName = v.findViewById(R.id.save_name_btn) as Button
         val deleteEnvironment = v.findViewById(R.id.remove_environment) as Button
+        val privateToken = v.findViewById(R.id.private_token) as TextView
+        privateToken.text = SubApplication.privateToken
         fetchEnvironmentName()
         fetchUsers()
         newUserBtn.setOnClickListener {

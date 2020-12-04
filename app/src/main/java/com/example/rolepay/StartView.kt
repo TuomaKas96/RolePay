@@ -2,6 +2,7 @@ package com.example.rolepay
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.ResultReceiver
 import android.util.Log
@@ -14,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import com.google.gson.Gson
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_start_view.*
@@ -23,6 +25,8 @@ import org.json.JSONObject
 
 class StartView : Fragment() {
 
+    data class NewResult (val privateToken: String, val environmentId: Int, val userId: Int)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +34,29 @@ class StartView : Fragment() {
         val v = inflater.inflate(R.layout.activity_start_view, container, false)
         val environmentBtn = v.findViewById(R.id.new_environment_button) as Button
 
-        environmentBtn.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(R.id.newEnvironment)
+        environmentBtn.setOnClickListener { val j = Intent()
+            j.action = "ACTION_NEW_ENVIRONMENT"
+            j.putExtra("path", "environment/add")
+            j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
+                override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
+                    super.onReceiveResult(resultCode, resultData)
+                    // Successful API call
+                    if (resultCode == 200) {
+                        val gson = Gson()
+                        val data = gson.fromJson(resultData.getString("Data"), Array<NewResult>::class.java)
+                        Log.d("StartView", "Data retrieved: " + data)
+                        SubApplication.admin = 1
+                        SubApplication.privateToken = data[0].privateToken
+                        SubApplication.environmentId = data[0].environmentId
+                        SubApplication.userId = data[0].userId
+                        parentFragment?.let { it1 -> NavHostFragment.findNavController(it1).navigate(R.id.newEnvironment) }
+                    } else { // Failed API call
+                        Log.i("StartView", "Something went wrong: " + resultData.getString("Error"))
+                    }
+                }
+            })
+            DatabaseConnection.enqueueWork(SubApplication.appContext, j)
+
         }
         val loginBtn = v.findViewById(R.id.login_button) as Button
         loginBtn.setOnClickListener {
