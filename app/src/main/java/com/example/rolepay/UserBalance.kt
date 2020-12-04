@@ -68,13 +68,11 @@ class UserBalance : Fragment() {
                     Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                     val data = gson.fromJson(resultData.getString("Data"), Array<TransactionEvent>::class.java)
                     for (event: TransactionEvent in data){
-                        if (event.sender == SubApplication.userId){
+                        if (event.sender == SubApplication.userId)
                             event.isNegative = true
-                            event.publicToken = "adhnadhuia"
-                        }else {
+                            else
                             event.isNegative = false
-                            event.publicToken = "adaidjwsoia"
-                        }
+
                         transactionEvents.add(event)
                         recyclerView.adapter = CustomAdapter(transactionEvents)
                     }
@@ -119,7 +117,10 @@ class CustomAdapter(val eventList: ArrayList<TransactionEvent>) : RecyclerView.A
             val amountView  = itemView.findViewById(R.id.amountText) as TextView
             val timeView  = itemView.findViewById(R.id.timeView) as TextView
             tokenView.text = event.publicToken
-            amountView.text = event.amount.toString() + "€"
+            var amount = event.amount.toString() + "€"
+            if (event.isNegative)
+                amount = "-" + amount
+            amountView.text = amount
             timeView.text = event.timestamp.toLocaleString()
         }
     }

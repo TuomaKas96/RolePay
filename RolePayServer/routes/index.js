@@ -3,7 +3,8 @@ const crypto = require('crypto');
 var router = express.Router();
 // Start server with "$env:DEBUG='myapp:*'; npm start" if running with VS Code
 
-var mysql = require('mysql')
+var mysql = require('mysql');
+const { map } = require('../app');
 
 var connection = mysql.createConnection({
   host: 'localhost',
@@ -33,7 +34,7 @@ function handleDisconnect(connection) {
 handleDisconnect(connection);
 connection.connect();
 
-function next (err) {
+function next(err) {
   console.log(err)
 }
 
@@ -173,7 +174,30 @@ router.get('/transaction/', function (req, res) {
 router.get('/user/transaction/', function (req, res) {
   connection.query('SELECT * FROM transaction WHERE sender=' + req.query.id + " OR receiver=" + req.query.id, function (err, result) {
     if (err) next(err)
-    res.send(result)
+    eventArray = result
+    tokenList = new Map()
+    // Fetch public tokens for other users
+    eventArray.forEach((event, index) => {
+      var searchable
+      (event.sender == req.query.id) ? searchable = event.receiver : searchable = event.sender
+      if (!tokenList.has(searchable)) {
+        connection.query('SELECT public_token FROM user WHERE user_id=' + searchable, function (err, result) {
+          if (err) next(err)
+          tokenList.set(searchable, result[0].public_token)
+          // Rewrite id into public token
+          event.publicToken = tokenList.get(searchable)
+          if (index == eventArray.length-1)
+            res.send(eventArray)
+        })
+      }
+      else {
+        // Rewrite id into public token
+        event.publicToken = tokenList.get(searchable)
+        if (index == eventArray.length-1)
+            res.send(eventArray)
+      }
+    }); 
+    
   })
 })
 /* ADD a new transaction */

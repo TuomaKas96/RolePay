@@ -63,14 +63,13 @@ class Transaction : Fragment() {
         return v
     }
     fun sendTransaction(method: Boolean, token: String, amount: Double) {
-        //TODO: Use current user ID stored in the app
-        val userId = "2"
+        val userId = SubApplication.userId
         // Create intent
         val i = Intent()
         i.action = "ACTION_NEW_TRANSACTION"
         i.putExtra("method", "POST")
         i.putExtra("path", "transaction/add")
-        val params = hashMapOf<String, Any>(
+        val params = hashMapOf<String, Any?>(
             "amount" to amount,
             "sender" to userId,
             "receiver" to token
