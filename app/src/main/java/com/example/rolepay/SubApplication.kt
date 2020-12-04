@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.ResultReceiver
 import android.util.Log
+import androidx.navigation.fragment.NavHostFragment
 
 
 // This is where code commonly used all around the app will be written

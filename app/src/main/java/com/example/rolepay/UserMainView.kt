@@ -1,22 +1,54 @@
 package com.example.rolepay
 
-import android.content.Intent
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.ResultReceiver
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 
 class UserMainView : Fragment() {
+    companion object {
+        fun logout (context: Context, fragment: Fragment) {
+            val builder = AlertDialog.Builder(context)
+            //set title for alert dialog
+            builder.setTitle(R.string.logout)
+            //set message for alert dialog
+            builder.setMessage(R.string.logout_dialog_msg)
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            //performing positive action
+            builder.setPositiveButton("Yes"){dialogInterface, which ->
+                //sets all storage data back to null
+                SubApplication.userId = null
+                SubApplication.publicToken = null
+                SubApplication.privateToken = null
+                SubApplication.admin = null
+                SubApplication.balanceId = null
+                SubApplication.environmentId = null
+
+                //navigate to StartView
+                NavHostFragment.findNavController(fragment).navigate(R.id.logout)
+            }
+            //performing cancel action
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+                if (SubApplication.admin == 1)
+                    NavHostFragment.findNavController(fragment).navigate(R.id.loginAsAdmin)
+                else
+                    NavHostFragment.findNavController(fragment).navigate(R.id.loginAsUser)
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,36 +66,7 @@ class UserMainView : Fragment() {
         //creates a dialog from which user can then choose to logout or cancel
         val logoutBtn = v.findViewById(R.id.logout_button) as Button
         logoutBtn.setOnClickListener{
-            val builder = AlertDialog.Builder(this.context)
-            //set title for alert dialog
-            builder.setTitle(R.string.logout_dialog_title)
-            //set message for alert dialog
-            builder.setMessage(R.string.logout_dialog_msg)
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-
-            //performing positive action
-            builder.setPositiveButton("Yes"){dialogInterface, which ->
-                //sets all storage data back to null
-                SubApplication.userId = null
-                SubApplication.publicToken = null
-                SubApplication.privateToken = null
-                SubApplication.admin = null
-                SubApplication.balanceId = null
-                SubApplication.environmentId = null
-
-                //navigate to StartView
-                NavHostFragment.findNavController(this).navigate(R.id.returnToStartView)
-            }
-            //performing cancel action
-            builder.setNeutralButton("Cancel"){dialogInterface , which ->
-
-            }
-            // Create the AlertDialog
-            val alertDialog: AlertDialog = builder.create()
-            // Set other dialog properties
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-
+            this.context?.let { it1 -> logout(it1, this) }
         }
 
         //sets public token text as the one from storage

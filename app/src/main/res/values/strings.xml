@@ -10,6 +10,7 @@
     <string name="login_button_text">Kirjaudu</string>
     <string name="login_error_text">Virhe kirjautuessa. Yritä uudelleen.</string>
     <string name="test_text"></string>
+    <string name="cancel">Peruuta</string>
 
     <!--activity_user_main_view-->
     <string name="balance_text">Saldo</string>
@@ -20,8 +21,7 @@
     <string name="public_token_value_text">1234567890</string>
     <string name="new_payment_button">Uusi maksu</string>
     <string name="new_request_button">Uusi pyyntö</string>
-    <string name="logout_button_text">Kirjaudu ulos</string>
-    <string name="logout_dialog_title">Kirjaudu ulos</string>
+    <string name="logout">Kirjaudu ulos</string>
     <string name="logout_dialog_msg">Haluatko varmasti kirjautua ulos?</string>
 
     <!--activity_user_balance-->
