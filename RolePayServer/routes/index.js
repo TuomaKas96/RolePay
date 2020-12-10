@@ -57,7 +57,6 @@ router.get('/environment/users/', function (req, res) {
     if (err) next(err)
     // Fetch balances
     result1.forEach((user, index) => {
-      console.log(user)
       if (user.balance_id)
     connection.query('SELECT value FROM balance WHERE balance_id=' + user.balance_id, function (err, result2) {
       if (err) next(err)

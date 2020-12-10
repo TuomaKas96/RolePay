@@ -9,108 +9,108 @@
     android:background="@color/colorPrimary"
     tools:context=".Admin">
 
-    <ImageView
-        android:id="@+id/rolepay_logo"
-        android:layout_width="226dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="36dp"
-        android:src="@drawable/rolepay_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/rolepay_logo"
+            android:layout_width="226dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/rolepay_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.499"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/private_token_header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/private_token"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/private_token"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rolepay_logo" />
+        <TextView
+            android:id="@+id/private_token_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/private_token"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/private_token"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rolepay_logo" />
 
-    <TextView
-        android:id="@+id/private_token"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/environment_name_header"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/private_token_header" />
+        <TextView
+            android:id="@+id/private_token"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/environment_name_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/private_token_header" />
 
-    <TextView
-        android:id="@+id/environment_name_header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/environment_name"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/save_name_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/private_token" />
-
-
-    <EditText
-        android:id="@+id/environment_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        app:layout_constraintBaseline_toBaselineOf="@+id/save_name_btn"
-        app:layout_constraintEnd_toStartOf="@+id/save_name_btn"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/save_name_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorSecondary"
-        android:text="@string/save"
-        app:layout_constraintBottom_toTopOf="@+id/new_user_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/environment_name"
-        app:layout_constraintTop_toBottomOf="@+id/environment_name_header" />
+        <TextView
+            android:id="@+id/environment_name_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/environment_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/save_name_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/private_token" />
 
 
-    <Button
-        android:id="@+id/new_user_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorSecondary"
-        android:text="@string/new_user_text"
-        app:layout_constraintBottom_toTopOf="@+id/users_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save_name_btn" />
+        <EditText
+            android:id="@+id/environment_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            app:layout_constraintBaseline_toBaselineOf="@+id/save_name_btn"
+            app:layout_constraintEnd_toStartOf="@+id/save_name_btn"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/users_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/remove_environment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_user_btn">
+        <Button
+            android:id="@+id/save_name_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorSecondary"
+            android:text="@string/save"
+            app:layout_constraintBottom_toTopOf="@+id/new_user_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/environment_name"
+            app:layout_constraintTop_toBottomOf="@+id/environment_name_header" />
 
-    </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/remove_environment"
-        android:layout_width="269dp"
-        android:layout_height="81dp"
-        android:backgroundTint="@color/colorSecondary"
-        android:text="@string/remove_environment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/users_recycler_view" />
+        <Button
+            android:id="@+id/new_user_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorSecondary"
+            android:text="@string/new_user_text"
+            app:layout_constraintBottom_toTopOf="@+id/users_recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_name_btn" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/users_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/remove_environment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_user_btn">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/remove_environment"
+            android:layout_width="269dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/colorSecondary"
+            android:text="@string/remove_environment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/users_recycler_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
