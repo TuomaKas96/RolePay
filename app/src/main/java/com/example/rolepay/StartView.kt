@@ -119,11 +119,14 @@ class StartView : Fragment() {
 
                             //add data to storage for later use
                             SubApplication.userId = jsonObject.get("user_id") as Int?
-                            SubApplication.publicToken = jsonObject.get("public_token") as String?
-                            SubApplication.privateToken = jsonObject.get("private_token") as String?
                             SubApplication.admin = jsonObject.get("admin") as Int?
-                            SubApplication.balanceId = jsonObject.get("balance_id") as Int?
                             SubApplication.environmentId = jsonObject.get("environment_id") as Int?
+                            SubApplication.privateToken = jsonObject.get("private_token") as String?
+                            if (SubApplication.admin == 0) {
+                                SubApplication.publicToken =
+                                    jsonObject.get("public_token") as String?
+                                SubApplication.balanceId = jsonObject.get("balance_id") as Int?
+                            }
 
                             //hide the loader after the query
                             loader.visibility = View.INVISIBLE
