@@ -33,7 +33,7 @@ class StartView : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.activity_start_view, container, false)
         val environmentBtn = v.findViewById(R.id.new_environment_button) as Button
-
+        //TODO: Show explanation text that tells how to get private token for login
         environmentBtn.setOnClickListener { val j = Intent()
             j.action = "ACTION_NEW_ENVIRONMENT"
             j.putExtra("path", "environment/add")
@@ -52,6 +52,7 @@ class StartView : Fragment() {
                         parentFragment?.let { it1 -> NavHostFragment.findNavController(it1).navigate(R.id.newEnvironment) }
                     } else { // Failed API call
                         Log.i("StartView", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })
@@ -153,6 +154,7 @@ class StartView : Fragment() {
 
                         //show error message after failed API call
                         errorText.visibility = View.VISIBLE
+                        //TODO: show error
 
                     }
                 }

@@ -23,6 +23,7 @@ class SubApplication : Application() {
         var balanceAmount: Double? = null
         var environmentId: Int? = 1
         // Access anywhere in app, for example: "SubApplication.userId"
+        //TODO: Store when closing app
     }
 
     // Runs once when app starts
@@ -56,6 +57,7 @@ class SubApplication : Application() {
                     Log.i(
                         "SubApplication",
                         "Something went wrong: " + resultData.getString("Error")
+                    //TODO: Show error
                     )
                 }
             }

@@ -26,6 +26,7 @@ class Admin : Fragment() {
         lateinit var recyclerView: RecyclerView
         lateinit var environmentName: EditText
         fun createUser () {
+            //TODO: Show spinner
             val i = Intent()
             i.action = "ACTION_NEW_USER"
             i.putExtra("params", hashMapOf<String,String>("environment" to SubApplication.environmentId.toString()))
@@ -38,8 +39,10 @@ class Admin : Fragment() {
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         fetchUsers()
+                        //TODO: Show "success!"-toast
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })
@@ -51,6 +54,7 @@ class Admin : Fragment() {
                 params.put("balance", balance)
                 params.put("balanceId", balanceId)
             }
+            //TODO: Show spinner
             val i = Intent()
             i.action = "ACTION_UPDATE_USER"
             i.putExtra("params", params)
@@ -63,14 +67,17 @@ class Admin : Fragment() {
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         fetchUsers()
+                        //TODO: Show "success!"-toast
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, i)
         }
         fun deleteUser (id: Int, balanceId: Int) {
+            //TODO: Show confirmation dialog
             val j = Intent()
             j.action = "ACTION_DELETE_USER"
             j.putExtra("params", hashMapOf<String,Any>("id" to id, "balanceId" to balanceId))
@@ -82,14 +89,17 @@ class Admin : Fragment() {
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         fetchUsers()
+                        //TODO: Show success-toast
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, j)
         }
         fun updateEnvironmentName (name: String) {
+            //TODO: Show spinner
             val j = Intent()
             j.action = "ACTION_UPDATE_ENVIRONMENT_NAME"
             j.putExtra("params", hashMapOf<String,Any>("id" to SubApplication.environmentId.toString(), "name" to name))
@@ -103,12 +113,14 @@ class Admin : Fragment() {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: show error
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, j)
         }
         fun removeEnvironment (id: Int, fragment: Fragment) {
+            //TODO: Show confirmation
             val j = Intent()
             j.action = "ACTION_DELETE_ENVIRONMENT"
             j.putExtra("params", hashMapOf<String,Any>("id" to id))
@@ -120,14 +132,17 @@ class Admin : Fragment() {
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         NavHostFragment.findNavController(fragment).navigate(R.id.startView)
+                        //TODO: Show success-toast
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: SHow error
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, j)
         }
         fun fetchUsers() {
+            //TODO: Show spinner
             val i = Intent()
             i.action = "ACTION_FETCH_USERS"
             i.putExtra("params", hashMapOf<String,String>("id" to SubApplication.environmentId.toString()))
@@ -146,12 +161,14 @@ class Admin : Fragment() {
 
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, i)
         }
         fun fetchEnvironmentName () {
+            //TODO: Show spinner
             val j = Intent()
             j.action = "ACTION_FETCH_ENVIRONMENT_NAME"
             j.putExtra("params", hashMapOf<String,Any>("id" to SubApplication.environmentId.toString()))
@@ -165,6 +182,7 @@ class Admin : Fragment() {
                         environmentName.setText(resultData.getString("Data").toString())
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })

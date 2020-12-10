@@ -32,7 +32,6 @@ class Transaction : Fragment() {
         val publicToken = v.findViewById(R.id.editText_public_token) as EditText
         val amount = v.findViewById(R.id.editText_amount) as EditText
         // Change between payment and request
-        //TODO: Requests not possible yet
         typeSwitch.setOnClickListener {
             // Change button text accordingly
             if (getString(R.string.pay).equals(payButton.text)) {
