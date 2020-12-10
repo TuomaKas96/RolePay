@@ -35,8 +35,8 @@ class StartView : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.activity_start_view, container, false)
         val environmentBtn = v.findViewById(R.id.new_environment_button) as Button
-
         //new environment button functionality
+        //TODO: Show explanation text that tells how to get private token for login
         environmentBtn.setOnClickListener { val j = Intent()
             j.action = "ACTION_NEW_ENVIRONMENT"
             j.putExtra("path", "environment/add")
@@ -55,6 +55,7 @@ class StartView : Fragment() {
                         parentFragment?.let { it1 -> NavHostFragment.findNavController(it1).navigate(R.id.newEnvironment) }
                     } else { // Failed API call
                         Log.i("StartView", "Something went wrong: " + resultData.getString("Error"))
+                        //TODO: Show error
                     }
                 }
             })
@@ -72,8 +73,6 @@ class StartView : Fragment() {
             val loader = v.findViewById(R.id.progress_loader) as ProgressBar
 
             loader.visibility = View.VISIBLE //makes the loader spinny thing visible after pressing the button
-
-            //TODO: maybe turn the code below into a separate function?
 
             // Create an intent
             val i = Intent()
@@ -124,11 +123,14 @@ class StartView : Fragment() {
 
                             //add data to storage for later use
                             SubApplication.userId = jsonObject.get("user_id") as Int?
-                            SubApplication.publicToken = jsonObject.get("public_token") as String?
-                            SubApplication.privateToken = jsonObject.get("private_token") as String?
                             SubApplication.admin = jsonObject.get("admin") as Int?
-                            SubApplication.balanceId = jsonObject.get("balance_id") as Int?
                             SubApplication.environmentId = jsonObject.get("environment_id") as Int?
+                            SubApplication.privateToken = jsonObject.get("private_token") as String?
+                            if (SubApplication.admin == 0) {
+                                SubApplication.publicToken =
+                                    jsonObject.get("public_token") as String?
+                                SubApplication.balanceId = jsonObject.get("balance_id") as Int?
+                            }
 
                             //hide the loader after the query
                             loader.visibility = View.INVISIBLE
@@ -157,6 +159,7 @@ class StartView : Fragment() {
 
                         //show error message after failed API call
                         errorText.visibility = View.VISIBLE
+                        //TODO: show error
 
                     }
                 }

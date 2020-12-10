@@ -19,6 +19,7 @@ import kotlin.collections.ArrayList
 class UserBalance : Fragment() {
     companion object {
         fun fetchBalance(textView: TextView?) {
+            //TODO: Show spinner
             // Fetch balance
             val j = Intent()
             j.action = "ACTION_FETCH_BALANCE"
@@ -37,6 +38,7 @@ class UserBalance : Fragment() {
                         Log.i(
                             "UserBalance",
                             "Something went wrong: " + resultData.getString("Error")
+                        //TODO: SHow error
                         )
                     }
                 }
@@ -56,6 +58,7 @@ class UserBalance : Fragment() {
         var transactionEvents = ArrayList<TransactionEvent>()
         val gson = Gson()
         // Fetch events
+        //TODO: Show spinner
         val i = Intent()
         i.action = "ACTION_FETCH_TRANSACTIONS"
         i.putExtra("params", hashMapOf<String,String>("id" to SubApplication.userId.toString()))
@@ -78,6 +81,7 @@ class UserBalance : Fragment() {
                     }
                 } else { // Failed API call
                     Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                    //TODO: SHow error
                 }
             }
         })

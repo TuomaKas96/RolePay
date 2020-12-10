@@ -27,9 +27,6 @@
             android:id="@+id/newEnvironment"
             app:destination="@id/admin" />
         <action
-            android:id="@+id/loginAsUser"
-            app:destination="@id/userMainView" />
-        <action
             android:id="@+id/loginAsAdmin"
             app:destination="@id/admin" />
     </fragment>
@@ -63,4 +60,7 @@
     <action
         android:id="@+id/logout"
         app:destination="@id/startView" />
+    <action
+        android:id="@+id/loginAsUser"
+        app:destination="@id/userMainView" />
 </navigation>
