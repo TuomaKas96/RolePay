@@ -68,8 +68,6 @@ class StartView : Fragment() {
 
             loader.visibility = View.VISIBLE //makes the loader spinny thing visible after pressing the button
 
-            //TODO: maybe turn the code below into a separate function?
-
             // Create an intent
             val i = Intent()
             // Create parameters, they will be added to the url/request body
