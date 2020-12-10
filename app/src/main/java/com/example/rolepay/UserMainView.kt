@@ -60,8 +60,6 @@ class UserMainView : Fragment() {
             NavHostFragment.findNavController(this).navigate(R.id.viewBalance)
         }
 
-        //TODO: lock the "back" button so user can't return to start view unless logging out
-
 
         //creates a dialog from which user can then choose to logout or cancel
         val logoutBtn = v.findViewById(R.id.logout_button) as Button

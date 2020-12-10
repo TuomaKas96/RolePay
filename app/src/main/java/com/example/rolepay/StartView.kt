@@ -1,5 +1,7 @@
 package com.example.rolepay
 
+
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
@@ -33,6 +35,7 @@ class StartView : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.activity_start_view, container, false)
         val environmentBtn = v.findViewById(R.id.new_environment_button) as Button
+        //new environment button functionality
         //TODO: Show explanation text that tells how to get private token for login
         environmentBtn.setOnClickListener { val j = Intent()
             j.action = "ACTION_NEW_ENVIRONMENT"
@@ -59,6 +62,8 @@ class StartView : Fragment() {
             DatabaseConnection.enqueueWork(SubApplication.appContext, j)
 
         }
+
+        //login button functionality
         val loginBtn = v.findViewById(R.id.login_button) as Button
         loginBtn.setOnClickListener {
 
