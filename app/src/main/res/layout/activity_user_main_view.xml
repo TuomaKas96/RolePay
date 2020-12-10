@@ -1,76 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_main_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".UserMainView">
 
     <TextView
         android:id="@+id/rolepay_logo"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:fontFamily="sans-serif"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/balance_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:text="@string/balance_text"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rolepay_logo" />
 
     <TextView
         android:id="@+id/balance_value_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:text="@string/balance_value_text"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="50sp" />
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balance_text" />
 
     <TextView
         android:id="@+id/new_payment_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="@string/new_payment_text"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/balance_value_text" />
 
     <Button
         android:id="@+id/new_payment_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/new_payment_button"/>
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/colorSecondary"
+        android:text="@string/new_payment_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_payment_text" />
 
     <TextView
         android:id="@+id/public_token_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
         android:text="@string/public_token_text"
         android:textAlignment="center"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_payment_button" />
 
     <TextView
         android:id="@+id/public_token_val_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/public_token_value_text"
         android:textAlignment="center"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/public_token_text" />
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/logout" />
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/colorSecondary"
+        android:text="@string/logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/public_token_val_text"
+        app:layout_constraintVertical_bias="0.0" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
