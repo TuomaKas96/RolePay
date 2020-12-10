@@ -8,18 +8,14 @@
     android:background="@color/colorPrimary"
     tools:context=".UserMainView">
 
-    <TextView
+    <ImageView
         android:id="@+id/rolepay_logo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="36sp"
+        android:layout_width="226dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/rolepay_white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +23,7 @@
         android:id="@+id/balance_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="60dp"
         android:text="@string/balance_text"
         android:textAlignment="center"
         android:textColor="@android:color/white"
