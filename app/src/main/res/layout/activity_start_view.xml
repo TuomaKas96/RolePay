@@ -99,18 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_input"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ProgressBar
-        android:id="@+id/progress_loader"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintVertical_bias="0.247" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

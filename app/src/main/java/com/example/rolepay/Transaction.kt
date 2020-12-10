@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.gson.Gson
@@ -31,6 +32,7 @@ class Transaction : Fragment() {
         val payButton = v.findViewById(R.id.confirm_button_pay) as Button
         val publicToken = v.findViewById(R.id.editText_public_token) as EditText
         val amount = v.findViewById(R.id.editText_amount) as EditText
+        val warning = v.findViewById(R.id.transaction_warning) as TextView
         // Change between payment and request
         typeSwitch.setOnClickListener {
             // Change button text accordingly
@@ -44,15 +46,17 @@ class Transaction : Fragment() {
             }
         }
         payButton.setOnClickListener {
-            //TODO: Add error messages if input is not correct
-
             // Check that inputs have been filled
             var valid = true
-            if (publicToken.getText().isEmpty())
+            if (publicToken.getText().isEmpty()) {
+                warning.text = getString(R.string.empty_publicToken)
                 valid = false
-            if (amount.getText().isEmpty() )
+            }
+            if (amount.getText().isEmpty() ) {
+                warning.text = getString(R.string.empty_amount)
                 valid = false
-            if (valid)
+            }
+            if (valid == true)
             sendTransaction(
                 typeSwitch.isChecked,
                 publicToken.getText().toString(),
@@ -62,6 +66,7 @@ class Transaction : Fragment() {
         return v
     }
     fun sendTransaction(method: Boolean, token: String, amount: Double) {
+        MainActivity.loader.visibility = View.VISIBLE
         val userId = SubApplication.userId
         // Create intent
         val i = Intent()
@@ -78,32 +83,19 @@ class Transaction : Fragment() {
         i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
             override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                 super.onReceiveResult(resultCode, resultData)
+                MainActivity.loader.visibility = View.INVISIBLE
                 var myMsg: String
                 if (resultCode == 200) {
                     Log.d("Transaction", "Data retrieved: " + resultData.getString("Data"))
-                    myMsg = "Transaction complete!"
+                    MainActivity.makeToast("Maksu onnistui!")
                     UserBalance.fetchBalance(null)
-
+                    parentFragment?.let {
+                        NavHostFragment.findNavController(it).navigate(R.id.userMainView)
+                    }
                 } else { // Failed API call
                     Log.i("Transaction", "Something went wrong: " + resultData.getString("Error"))
-                    myMsg = "Transaction failed, error: " + resultData.getString("Error")
+                    MainActivity.makeToast("Maksu epäonnistui: " + resultData.getString("Error"))
                 }
-                // Show a popup window after call is ready
-                //TODO: Show a spinner when processing request
-                val dialog: AlertDialog.Builder = AlertDialog.Builder(context)
-                dialog.setMessage(myMsg)
-                dialog.setTitle("Transaction complete")
-                dialog.setPositiveButton("OK",
-                    DialogInterface.OnClickListener { dialog, which ->
-                        // Return to usermainview after successful transaction
-                        if (resultCode == 200)
-                        parentFragment?.let {
-                            NavHostFragment.findNavController(it).navigate(R.id.userMainView)
-                        }
-                    })
-                val alertDialog: AlertDialog = dialog.create()
-                alertDialog.show()
-
             }
         })
         DatabaseConnection.enqueueWork(context, i)

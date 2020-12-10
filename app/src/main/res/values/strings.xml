@@ -33,7 +33,9 @@
     <string name="save">Tallenna</string>
     <string name="private_token">Salainen token:</string>
     <string name="remove_user">Poista käyttäjä</string>
+    <string name="remove_user_msg">Haluatko varmasti poistaa tämän käyttäjän?</string>
     <string name="remove_environment">Poista ympäristö</string>
+    <string name="remove_environment_msg">Haluatko varmasti poistaa koko ympäristön ja sen käyttäjät?</string>
   
     <!--activity_transaction-->
     <string name="transaction">Maksutapahtuma</string>
@@ -41,4 +43,6 @@
     <string name="pay">Maksa</string>
     <string name="request">Pyydä</string>
     <string name="amount">Summa</string>
+    <string name="empty_amount">Syötä summa!</string>
+    <string name="empty_publicToken">Syötä julkinen token!</string>
 </resources>

@@ -19,7 +19,7 @@ import kotlin.collections.ArrayList
 class UserBalance : Fragment() {
     companion object {
         fun fetchBalance(textView: TextView?) {
-            //TODO: Show spinner
+            MainActivity.loader.visibility = View.VISIBLE
             // Fetch balance
             val j = Intent()
             j.action = "ACTION_FETCH_BALANCE"
@@ -28,6 +28,7 @@ class UserBalance : Fragment() {
             j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
+                    MainActivity.loader.visibility = View.INVISIBLE
                     // Successful API call
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
@@ -37,9 +38,9 @@ class UserBalance : Fragment() {
                     } else { // Failed API call
                         Log.i(
                             "UserBalance",
-                            "Something went wrong: " + resultData.getString("Error")
-                        //TODO: SHow error
-                        )
+                            "Something went wrong: " + resultData.getString("Error") )
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
+
                     }
                 }
             })
@@ -58,7 +59,7 @@ class UserBalance : Fragment() {
         var transactionEvents = ArrayList<TransactionEvent>()
         val gson = Gson()
         // Fetch events
-        //TODO: Show spinner
+        MainActivity.loader.visibility = View.VISIBLE
         val i = Intent()
         i.action = "ACTION_FETCH_TRANSACTIONS"
         i.putExtra("params", hashMapOf<String,String>("id" to SubApplication.userId.toString()))
@@ -66,6 +67,7 @@ class UserBalance : Fragment() {
         i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
             override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                 super.onReceiveResult(resultCode, resultData)
+                MainActivity.loader.visibility = View.INVISIBLE
                 // Successful API call
                 if (resultCode == 200) {
                     Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
@@ -81,7 +83,7 @@ class UserBalance : Fragment() {
                     }
                 } else { // Failed API call
                     Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                    //TODO: SHow error
+                    MainActivity.makeToast("Error: " + resultData.getString("Error"))
                 }
             }
         })

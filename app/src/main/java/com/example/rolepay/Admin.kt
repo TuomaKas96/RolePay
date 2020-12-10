@@ -1,5 +1,7 @@
 package com.example.rolepay
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +9,8 @@ import android.os.ResultReceiver
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -25,8 +29,9 @@ class Admin : Fragment() {
         val gson = Gson()
         lateinit var recyclerView: RecyclerView
         lateinit var environmentName: EditText
+        lateinit var adminContext: Context
         fun createUser () {
-            //TODO: Show spinner
+            MainActivity.loader.visibility = VISIBLE
             val i = Intent()
             i.action = "ACTION_NEW_USER"
             i.putExtra("params", hashMapOf<String,String>("environment" to SubApplication.environmentId.toString()))
@@ -35,14 +40,15 @@ class Admin : Fragment() {
             i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
+                    MainActivity.loader.visibility = INVISIBLE
                     // Successful API call
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         fetchUsers()
-                        //TODO: Show "success!"-toast
+                        MainActivity.makeToast("New user added")
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: Show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
                     }
                 }
             })
@@ -54,7 +60,7 @@ class Admin : Fragment() {
                 params.put("balance", balance)
                 params.put("balanceId", balanceId)
             }
-            //TODO: Show spinner
+            MainActivity.loader.visibility = VISIBLE
             val i = Intent()
             i.action = "ACTION_UPDATE_USER"
             i.putExtra("params", params)
@@ -63,43 +69,64 @@ class Admin : Fragment() {
             i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
+                    MainActivity.loader.visibility = INVISIBLE
                     // Successful API call
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         fetchUsers()
-                        //TODO: Show "success!"-toast
+                        MainActivity.makeToast("User updated")
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: Show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, i)
         }
-        fun deleteUser (id: Int, balanceId: Int) {
-            //TODO: Show confirmation dialog
-            val j = Intent()
-            j.action = "ACTION_DELETE_USER"
-            j.putExtra("params", hashMapOf<String,Any>("id" to id, "balanceId" to balanceId))
-            j.putExtra("path", "user/remove")
-            j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
-                override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
-                    super.onReceiveResult(resultCode, resultData)
-                    // Successful API call
-                    if (resultCode == 200) {
-                        Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
-                        fetchUsers()
-                        //TODO: Show success-toast
-                    } else { // Failed API call
-                        Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: Show error
+        fun deleteUser (id: Int, balanceId: Int, context: Context) {
+            val builder = AlertDialog.Builder(context)
+            //set title for alert dialog
+            builder.setTitle(R.string.remove_user)
+            //set message for alert dialog
+            builder.setMessage(R.string.remove_user_msg)
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            //performing positive action
+            builder.setPositiveButton("Yes"){dialogInterface, which ->
+                MainActivity.loader.visibility = VISIBLE
+                val j = Intent()
+                j.action = "ACTION_DELETE_USER"
+                j.putExtra("params", hashMapOf<String,Any>("id" to id, "balanceId" to balanceId))
+                j.putExtra("path", "user/remove")
+                j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
+                    override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
+                        super.onReceiveResult(resultCode, resultData)
+                        MainActivity.loader.visibility = INVISIBLE
+                        // Successful API call
+                        if (resultCode == 200) {
+                            Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
+                            fetchUsers()
+                            MainActivity.makeToast("User deleted")
+                        } else { // Failed API call
+                            Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                            MainActivity.makeToast("Error: " + resultData.getString("Error"))
+                        }
                     }
-                }
-            })
-            DatabaseConnection.enqueueWork(SubApplication.appContext, j)
+                })
+                DatabaseConnection.enqueueWork(SubApplication.appContext, j)
+            }
+            //performing cancel action
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.show()
+
         }
         fun updateEnvironmentName (name: String) {
-            //TODO: Show spinner
+            MainActivity.loader.visibility = VISIBLE
             val j = Intent()
             j.action = "ACTION_UPDATE_ENVIRONMENT_NAME"
             j.putExtra("params", hashMapOf<String,Any>("id" to SubApplication.environmentId.toString(), "name" to name))
@@ -108,41 +135,62 @@ class Admin : Fragment() {
             j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
+                    MainActivity.loader.visibility = INVISIBLE
                     // Successful API call
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, j)
         }
-        fun removeEnvironment (id: Int, fragment: Fragment) {
-            //TODO: Show confirmation
-            val j = Intent()
-            j.action = "ACTION_DELETE_ENVIRONMENT"
-            j.putExtra("params", hashMapOf<String,Any>("id" to id))
-            j.putExtra("path", "environment/remove")
-            j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
-                override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
-                    super.onReceiveResult(resultCode, resultData)
-                    // Successful API call
-                    if (resultCode == 200) {
-                        Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
-                        NavHostFragment.findNavController(fragment).navigate(R.id.startView)
-                        //TODO: Show success-toast
-                    } else { // Failed API call
-                        Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: SHow error
+        fun removeEnvironment (id: Int, fragment: Fragment, context: Context) {
+            val builder = AlertDialog.Builder(context)
+            //set title for alert dialog
+            builder.setTitle(R.string.remove_environment)
+            //set message for alert dialog
+            builder.setMessage(R.string.remove_environment_msg)
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            //performing positive action
+            builder.setPositiveButton("Yes"){dialogInterface, which ->
+                MainActivity.loader.visibility = VISIBLE
+                val j = Intent()
+                j.action = "ACTION_DELETE_ENVIRONMENT"
+                j.putExtra("params", hashMapOf<String,Any>("id" to id))
+                j.putExtra("path", "environment/remove")
+                j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
+                    override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
+                        super.onReceiveResult(resultCode, resultData)
+                        MainActivity.loader.visibility = INVISIBLE
+                        // Successful API call
+                        if (resultCode == 200) {
+                            Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
+                            NavHostFragment.findNavController(fragment).navigate(R.id.startView)
+                            MainActivity.makeToast("Environment deleted")
+                        } else { // Failed API call
+                            Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
+                            MainActivity.makeToast("Error: " + resultData.getString("Error"))
+                        }
                     }
-                }
-            })
-            DatabaseConnection.enqueueWork(SubApplication.appContext, j)
+                })
+                DatabaseConnection.enqueueWork(SubApplication.appContext, j)
+            }
+            //performing cancel action
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.show()
+
         }
         fun fetchUsers() {
-            //TODO: Show spinner
+            MainActivity.loader.visibility = VISIBLE
             val i = Intent()
             i.action = "ACTION_FETCH_USERS"
             i.putExtra("params", hashMapOf<String,String>("id" to SubApplication.environmentId.toString()))
@@ -150,6 +198,7 @@ class Admin : Fragment() {
             i.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
+                    MainActivity.loader.visibility = INVISIBLE
                     // Successful API call
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
@@ -161,14 +210,14 @@ class Admin : Fragment() {
 
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: Show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
                     }
                 }
             })
             DatabaseConnection.enqueueWork(SubApplication.appContext, i)
         }
         fun fetchEnvironmentName () {
-            //TODO: Show spinner
+            MainActivity.loader.visibility = VISIBLE
             val j = Intent()
             j.action = "ACTION_FETCH_ENVIRONMENT_NAME"
             j.putExtra("params", hashMapOf<String,Any>("id" to SubApplication.environmentId.toString()))
@@ -176,13 +225,14 @@ class Admin : Fragment() {
             j.putExtra("RECEIVER", object : ResultReceiver(Handler()) {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
+                    MainActivity.loader.visibility = INVISIBLE
                     // Successful API call
                     if (resultCode == 200) {
                         Log.d("UserBalance", "Data retrieved: " + resultData.getString("Data"))
                         environmentName.setText(resultData.getString("Data").toString())
                     } else { // Failed API call
                         Log.i("UserBalance", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: Show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
                     }
                 }
             })
@@ -195,6 +245,7 @@ class Admin : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v =  inflater.inflate(R.layout.activity_admin, container, false)
+        adminContext = v.context
         recyclerView = v.findViewById(R.id.users_recycler_view) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
         environmentName = v.findViewById(R.id.environment_name) as EditText
@@ -212,7 +263,11 @@ class Admin : Fragment() {
             updateEnvironmentName(environmentName.text.toString())
         }
         deleteEnvironment.setOnClickListener {
-            SubApplication.environmentId?.let { it1 -> removeEnvironment(it1, this) }
+            SubApplication.environmentId?.let { it1 -> context?.let { it2 ->
+                removeEnvironment(it1, this,
+                    it2
+                )
+            } }
         }
         return v
     }
@@ -256,7 +311,7 @@ class UserRecyclerAdapter(val userList: ArrayList<User>) : RecyclerView.Adapter<
                 Admin.updateUser(user.user_id, publicToken.text.toString(), newBalance, user.balance_id)
             }
             deleteUser.setOnClickListener {
-                Admin.deleteUser(user.user_id, user.balance_id)
+                Admin.deleteUser(user.user_id, user.balance_id, Admin.adminContext)
             }
         }
     }

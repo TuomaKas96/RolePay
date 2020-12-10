@@ -53,9 +53,21 @@ router.get('/environment/name/', function (req, res) {
 })
 /* GET environment users (without admin) */
 router.get('/environment/users/', function (req, res) {
-  connection.query('SELECT * FROM user WHERE environment_id=' + req.query.id + ' AND NOT admin=1', function (err, result) {
+  connection.query('SELECT * FROM user WHERE environment_id=' + req.query.id + ' AND NOT admin=1', function (err, result1) {
     if (err) next(err)
-    res.send(result)
+    // Fetch balances
+    result1.forEach((user, index) => {
+      console.log(user)
+      if (user.balance_id)
+    connection.query('SELECT value FROM balance WHERE balance_id=' + user.balance_id, function (err, result2) {
+      if (err) next(err)
+      user.balance = result2[0].value
+      if (index == result1.length-1)
+      res.send(result1)
+    })
+    else if (index == result1.length-1)
+    res.send(result1)
+  })
   })
 })
 

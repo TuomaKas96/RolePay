@@ -73,6 +73,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/balance_history_text" />
 
-    <!--TODO: turn this into RecyclerView and make it work!-->
-
 </androidx.constraintlayout.widget.ConstraintLayout>

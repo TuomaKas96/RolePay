@@ -10,6 +10,8 @@ import android.os.ResultReceiver
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -55,7 +57,7 @@ class StartView : Fragment() {
                         parentFragment?.let { it1 -> NavHostFragment.findNavController(it1).navigate(R.id.newEnvironment) }
                     } else { // Failed API call
                         Log.i("StartView", "Something went wrong: " + resultData.getString("Error"))
-                        //TODO: Show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
                     }
                 }
             })
@@ -70,9 +72,8 @@ class StartView : Fragment() {
             val loginInput = v.findViewById(R.id.login_input) as EditText
             val tokenValue = loginInput.text.toString()
             val errorText = v.findViewById(R.id.login_error_text) as TextView
-            val loader = v.findViewById(R.id.progress_loader) as ProgressBar
 
-            loader.visibility = View.VISIBLE //makes the loader spinny thing visible after pressing the button
+            MainActivity.loader.visibility = VISIBLE //makes the loader spinny thing visible after pressing the button
 
             // Create an intent
             val i = Intent()
@@ -89,6 +90,8 @@ class StartView : Fragment() {
                 override fun onReceiveResult(resultCode: Int, resultData: Bundle) {
                     super.onReceiveResult(resultCode, resultData)
                     // Successful API call
+                    // hide the loader
+                     MainActivity.loader.visibility = INVISIBLE
                     if (resultCode == 200) {
                         Log.d("StartView", "Data retrieved: " + resultData.getString("Data"))
 
@@ -110,8 +113,7 @@ class StartView : Fragment() {
 
                         //login failed if errors in data
                         if(error){
-                            //hide the loader
-                            loader.visibility = View.INVISIBLE
+
 
                             //show error message after failed API call
                             errorText.visibility = View.VISIBLE
@@ -132,8 +134,6 @@ class StartView : Fragment() {
                                 SubApplication.balanceId = jsonObject.get("balance_id") as Int?
                             }
 
-                            //hide the loader after the query
-                            loader.visibility = View.INVISIBLE
                             //hide error message if visible from previous attempts
                             if (errorText.visibility == View.VISIBLE){
                                 errorText.visibility = View.INVISIBLE
@@ -154,12 +154,9 @@ class StartView : Fragment() {
                     } else { // Failed API call
                         Log.i("SubApplication", "Something went wrong: " + resultData.getString("Error"))
 
-                        //hide the loader
-                        loader.visibility = View.INVISIBLE
-
                         //show error message after failed API call
                         errorText.visibility = View.VISIBLE
-                        //TODO: show error
+                        MainActivity.makeToast("Error: " + resultData.getString("Error"))
 
                     }
                 }

@@ -57,7 +57,6 @@ class SubApplication : Application() {
                     Log.i(
                         "SubApplication",
                         "Something went wrong: " + resultData.getString("Error")
-                    //TODO: Show error
                     )
                 }
             }
