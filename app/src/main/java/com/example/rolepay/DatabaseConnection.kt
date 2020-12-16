@@ -139,7 +139,5 @@ class DatabaseConnection : JobIntentService() {
         //Change to match your local IP
         // IMPORTANT! Your device must be in the same LAN for this to work
         var dbUrl = "http://192.168.1.101:3000/"
-        //comment this out when not using this ip
-        //var dbUrl = "http://89.166.118.240:3000/"
     }
 }
